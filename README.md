@@ -4,11 +4,11 @@ FILE STORAGE REST SERVICE
 This service implements a smaller part of the described functionality.
 At the moment, we do not save the actual contents of the files, only their name and size at the moment.
 This service supports the following features:
-1.Upload
-2.Delete file
-3.Assign tags to file
-4.Remove tags from file
-5.List files with pagination optionally filtered by tags
+- Upload
+- Delete file
+- Assign tags to file
+- Remove tags from file
+- List files with pagination optionally filtered by tags
 
 One of the main advantages of the service is:
 - opportunity at the upload automatically add tag "audio" / "video" / "document" / "image" etc. based on extension
