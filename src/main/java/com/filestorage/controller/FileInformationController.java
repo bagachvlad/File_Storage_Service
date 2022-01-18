@@ -5,7 +5,8 @@ import com.filestorage.dto.RequestFileDto;
 import com.filestorage.dto.ResponseFileDto;
 import com.filestorage.dto.SearchRequestDto;
 import com.filestorage.service.FileInformationService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,23 +26,23 @@ public class FileInformationController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteFileById(@PathVariable("id") String id) {
+    public ResponseEntity<String> deleteFileById(@PathVariable("id") String id) {
         service.deleteFileById(id);
+        return new ResponseEntity<String>(id , HttpStatus.OK);
     }
 
     @PostMapping("/{id}/tags")
-    public void assignTagsToFile(@PathVariable("id") String id, @RequestBody List<String> tags) {
-        service.addTags(id, tags);
+    public ResponseEntity<FileInformation> assignTagsToFile(@PathVariable("id") String id, @RequestBody List<String> tags) {
+        return new ResponseEntity<>(service.addTags(id, tags) , HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}/tags")
-    public void deleteTagsById(@PathVariable("id") String id, @RequestBody List<String> tags) {
-        service.deleteTagsFromFile(id, tags);
+    public ResponseEntity<FileInformation> deleteTagsById(@PathVariable("id") String id, @RequestBody List<String> tags) {
+        return new ResponseEntity<>(service.deleteTagsFromFile(id, tags) , HttpStatus.OK);
     }
 
     @PostMapping("/search")
     public List<FileInformation> search(@RequestBody SearchRequestDto dto) {
         return service.search(dto);
     }
-
 }
